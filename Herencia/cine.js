@@ -5,7 +5,7 @@ class Largometraje {
   }
 
   play() {
-      return `Estoy reproduciendo ${this.title} y dura ${this.duration} minutos,`
+    return `Estoy reproduciendo ${this.title} y dura ${this.duration} minutos,`;
   }
 }
 
@@ -25,21 +25,21 @@ class Documental extends Largometraje {
 
 class MovieTheater {
   constructor(location) {
-      this.location = location
+    this.location = location;
   }
 
   playFeatureFilm(featureFilm) {
-      const filmMsg = featureFilm.play()
-      return `${filmMsg} ubicado el cine en ${this.location}`
+    const filmMsg = featureFilm.play();
+    return `${filmMsg} ubicado el cine en ${this.location}`;
   }
 }
 
-const Avengers = new Pelicula("Avengers Movie", 120, 'Película');
-const Joker = new Pelicula('Joker', 180, 'Thriller')
+const Avengers = new Pelicula("Avengers Movie", 120, "Película");
+const Joker = new Pelicula("Joker", 180, "Thriller");
 
-const Tierra1 = new Documental("El universo", 70, 'Documental');
-const Tierra2 = new Documental('Universo 2000', 120, 'Naturaleza')
+const Tierra1 = new Documental("El universo", 70, "Documental");
+const Tierra2 = new Documental("Universo 2000", 120, "Naturaleza");
 
-const Cinemex = new MovieTheater('CDMX')
+const Cinemex = new MovieTheater("CDMX");
 
-console.log('Función Cine::', Cinemex.playFeatureFilm(Avengers))
+console.log("Función Cine::", Cinemex.playFeatureFilm(Avengers));
