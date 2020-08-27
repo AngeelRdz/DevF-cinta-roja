@@ -1,0 +1,19 @@
+{
+  "name": "promises",
+  "version": "1.0.0",
+  "description": "Promesas - Ejercicios",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "DevF-cinta-roja"
+  },
+  "author": "Angeel Rdz",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "request": "^2.88.2"
+  }
+}

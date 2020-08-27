@@ -53,6 +53,18 @@ const getPokemonTypes = () => {
 
 getPokemonTypes();
 
+const getPokemonMoves = (pokemonId) => {
+  request.get(`${URI}/pokemon/${pokemonId}`, (error, response, body) => {
+    if (response.statusCode === 200) {
+      const parsedJson = JSON.parse(response.body);
+      const movesNames = parsedJson.moves.map((move) => move.move.name);
+      console.log(movesNames);
+    } else {
+      console.log(`Hubo un error de código: ${response.statusCode}`);
+    }
+  });
+};
+
 // NASA
 
 const NASA_URI = `https://api.nasa.gov/neo/rest/v1/feed?start_date=2020-08-01&end_date=2020-08-08&api_key=HwEmH0NlCV9i1NQsIYTae8dfi3embj0cUEpEYoYj`;
