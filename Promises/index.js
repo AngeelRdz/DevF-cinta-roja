@@ -97,25 +97,47 @@ const NASA_URI = `https://api.nasa.gov/neo/rest/v1/feed?start_date=2020-08-22&en
 //   .catch((error) => console.log(error.response.data.error_message));
 
 
-const getDangerousAsteroids2 = async (start_date, end_date, api_key) => {
-  try {
-    const NASA_URI = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${start_date}&end_date=${end_date}&api_key=${api_key}`
+// const getDangerousAsteroids = async (start_date, end_date, api_key) => {
+//   try {
+//     const NASA_URI = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${start_date}&end_date=${end_date}&api_key=${api_key}`
     
-    const response = await axios.get(NASA_URI)
+//     const response = await axios.get(NASA_URI)
 
-    const body = response.data
+//     const body = response.data
 
-    const NEOarray = Object.values(body.near_earth_objects)
+//     const NEOarray = Object.values(body.near_earth_objects)
 
-    const flattedNEO = NEOarray.flat()
+//     const flattedNEO = NEOarray.flat()
 
-    const dangerousAsteroids = flattedNEO.filter(asteroid => asteroid.is_potentially_hazardous_asteroid)
+//     const dangerousAsteroids = flattedNEO.filter(asteroid => asteroid.is_potentially_hazardous_asteroid)
 
-    console.log(dangerousAsteroids);
-    return dangerousAsteroids
-  } catch (error) {
-    throw new Error(error.message)
-  }
+//     console.log(dangerousAsteroids);
+//     return dangerousAsteroids
+//   } catch (error) {
+//     throw new Error(error.message)
+//   }
+// }
+
+// getDangerousAsteroids2('2020-08-18', '2020-08-24', '7s0ep6LwhAf8zcd0EIQDjK1TptDPWvNUIRIXF1S8')
+
+const getDangerousAsteroidsByDate = async (start_date, end_date, api_key) => {
+  const response = await axios.get(
+    `https://api.nasa.gov/neo/rest/v1/feed?start_date=${start_date}&end_date=${end_date}&api_key=${api_key}`
+  )
+
+  const near_earth_objects = response.data.near_earth_objects
+
+  const NEOEntries = Object.entries(near_earth_objects)
+  const obj = {}
+  NEOEntries.forEach(array => {
+    const key = array[0]
+    const value = array[1]
+    const filteredAsteroids= value.filter(asteroid => asteroid.is_potentially_hazardous_asteroid)
+    obj[key] = filteredAsteroids
+  })
+  console.log(obj);
+  return obj
+
 }
 
-getDangerousAsteroids2('2020-08-18', '2020-08-24', '7s0ep6LwhAf8zcd0EIQDjK1TptDPWvNUIRIXF1S8')
+getDangerousAsteroidsByDate('2020-08-18', '2020-08-24', '7s0ep6LwhAf8zcd0EIQDjK1TptDPWvNUIRIXF1S8')
