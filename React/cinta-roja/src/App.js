@@ -3,6 +3,7 @@ import "./App.css";
 import Logo from "./components/LogoGoogle";
 import Search from "./components/Search";
 import Buttons from "./components/Buttons";
+import Boton from "./components//Boton";
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
       <p className="text-google">
         Ofrecido por Google en: <span className="span-text">English</span>
       </p>
+      <Boton/>
+      <Boton/>
     </div>
   );
 }
