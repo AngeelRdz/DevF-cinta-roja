@@ -3,46 +3,52 @@ import axios from "axios";
 import "../css/App.css";
 import AsteroidCard from "../components/AsteroidCard";
 
-const CardsContainer = () => {
-  const [asteroids, setAsteroids] = useState([]);
+const AsteroidsContainer = () => {
+  const [dangerousAsteroids, setDangerousAsteroids] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log("Al montar el componente de Asteroides");
-    axios
-      .get(
-        "https://api.nasa.gov/neo/rest/v1/feed?start_date=2020-08-01&end_date=2020-08-08&api_key=HwEmH0NlCV9i1NQsIYTae8dfi3embj0cUEpEYoYj"
-      )
-      .then((res) => {
-        setAsteroids(res.data.near_earth_objects);
-        const NEOEntries = Object.entries(res.data.near_earth_objects);
-        console.log(NEOEntries);
-        NEOEntries.forEach((array) => {
-          const key = array[0];
-          const value = array[1];
-          const mappedNameAsteroids = value.map((asteroid) => asteroid.name);
-          asteroids[key] = mappedNameAsteroids;
-          console.log(key);
-          console.log(value);
-          console.log(mappedNameAsteroids);
-        });
-        console.log(asteroids);
-      })
-      .catch((err) => console.log(err));
-    return () => {
-      console.log("Al borrar el componente de Asteroides");
-    };
+    getDAsteroids();
   }, []);
+
+  const getDAsteroids = async () => {
+    try {
+      setLoading(true);
+      const NASA_URI = `https://api.nasa.gov/neo/rest/v1/feed?start_date=2020-08-24&end_date=2020-08-30&api_key=7s0ep6LwhAf8zcd0EIQDjK1TptDPWvNUIRIXF1S8`;
+      const response = await axios.get(NASA_URI);
+      const NEOArr = Object.values(response.data.near_earth_objects);
+      const flatDates = NEOArr.flat();
+      const dangerousAsteroids = flatDates.filter(
+        (asteroid) => asteroid.is_potentially_hazardous_asteroid
+      );
+      console.log(dangerousAsteroids);
+      setLoading(false);
+      setDangerousAsteroids(dangerousAsteroids);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 
   return (
     <div>
       <h1>ASTEROIDS</h1>
+      <h2>Asteroides potencialmente peligrosos para la tierra</h2>
       <div>
-        {Object.values(asteroids).map((asteroid) => (
-          <AsteroidCard name={asteroid.name} />
-        ))}
+        {loading ? (
+          <h5>Cargando...</h5>
+        ) : (
+          dangerousAsteroids.map((asteroid) => {
+            return (
+              <div key={asteroid.id}>
+                <h1> ID: {asteroid.id} </h1>
+                <h1> NAME: {asteroid.name} </h1>
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );
 };
 
-export default CardsContainer;
+export default AsteroidsContainer;
