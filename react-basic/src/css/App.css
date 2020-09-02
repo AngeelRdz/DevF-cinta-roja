@@ -1,0 +1,14 @@
+.container-colors {
+    height: 50vh;
+    width: 50wh;
+    border: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5%;
+}
+
+.color-block {
+    height: 50px;
+    width: 50px;
+}
