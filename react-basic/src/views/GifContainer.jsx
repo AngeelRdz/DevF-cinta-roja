@@ -2,8 +2,26 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../css/App.css";
 import GifCard from "../components/CardGif";
+import { makeStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > * + *": {
+      marginLeft: theme.spacing(2),
+    },
+  },
+  containerProgress: {
+    height: "50vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+}));
 
 const CardsContainer = () => {
+  const classes = useStyles();
   const [gifs, setGifs] = useState([]);
   const [query, setQuery] = useState(["Pokemon"]);
   const [loading, setLoading] = useState(false);
@@ -41,7 +59,9 @@ const CardsContainer = () => {
       <input type="text" onChange={handleInput}></input>
       <div>
         {loading ? (
-          <h5>Cargando...</h5>
+          <div className={classes.containerProgress}>
+            <CircularProgress />
+          </div>
         ) : (
           gifs.map((gif) => (
             <GifCard key={gif.id} src={gif.images.original.url} />

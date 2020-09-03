@@ -2,8 +2,26 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../css/App.css";
 import AsteroidCard from "../components/AsteroidCard";
+import { makeStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > * + *": {
+      marginLeft: theme.spacing(2),
+    },
+  },
+  containerProgress: {
+    height: "50vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+}));
 
 const AsteroidsContainer = () => {
+  const classes = useStyles();
   const [dangerousAsteroids, setDangerousAsteroids] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -35,7 +53,9 @@ const AsteroidsContainer = () => {
       <h2>Asteroides potencialmente peligrosos para la tierra</h2>
       <div>
         {loading ? (
-          <h5>Cargando...</h5>
+          <div className={classes.containerProgress}>
+            <CircularProgress />
+          </div>
         ) : (
           dangerousAsteroids.map((asteroid) => {
             return (
