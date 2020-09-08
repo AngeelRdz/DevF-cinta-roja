@@ -166,23 +166,37 @@ const AsteroidsContainer = () => {
           </div>
         ) : (
           dangerousAsteroids.map((asteroid) => {
-            return closeApproachData.map((date) => {
-              console.log(asteroid, date);
-              return (
-                <Grid item xs={12} sm={6} md={4} lg={3}>
-                  <AsteroidCard
-                    key={asteroid.id}
-                    src={LogoNASA}
-                    title={asteroid.name}
-                    numberReference={asteroid.nasa_jpl_url}
-                    magnitud={asteroid.absolute_magnitude_h}
-                    dangerous={asteroid.is_potentially_hazardous_asteroid}
-                    closeApproachDate={date[0].close_approach_date}
-                  />
-                </Grid>
-              );
-            });
+            return (
+              <Grid item xs={12} sm={6} md={4} lg={3}>
+                <AsteroidCard
+                  key={asteroid.id}
+                  src={LogoNASA}
+                  title={asteroid.name}
+                  numberReference={asteroid.nasa_jpl_url}
+                  magnitud={asteroid.absolute_magnitude_h}
+                  dangerous={asteroid.is_potentially_hazardous_asteroid}
+                />
+              </Grid>
+            );
           })
+          // dangerousAsteroids.map((asteroid) => {
+          //   return closeApproachData.map((date) => {
+          //     console.log(asteroid, date);
+          //     return (
+          //       <Grid item xs={12} sm={6} md={4} lg={3}>
+          //         <AsteroidCard
+          //           key={asteroid.id}
+          //           src={LogoNASA}
+          //           title={asteroid.name}
+          //           numberReference={asteroid.nasa_jpl_url}
+          //           magnitud={asteroid.absolute_magnitude_h}
+          //           dangerous={asteroid.is_potentially_hazardous_asteroid}
+          //           closeApproachDate={date[0].close_approach_date}
+          //         />
+          //       </Grid>
+          //     );
+          //   });
+          // })
 
           // (array.map((asteroid) => {
           //     return (

@@ -53,7 +53,7 @@ const AsteroidCard = (props) => {
         <Typography gutterBottom variant="h5" component="h2">
           {props.title}
         </Typography>
-        {props.closeApproachDate}
+        {/* {props.closeApproachDate} */}
         <Typography variant="body2" color="textSecondary" component="p">
           Magnitud: {props.magnitud}
         </Typography>
